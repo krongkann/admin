@@ -34,8 +34,9 @@ app.get('/data', (req, res)=>{
       gender: (i%2 == 0)?  "female": "male", 
       rating: i ,
       col: faker.commerce.color() ,
+      location: faker.address.state(),
       dob: faker.date.month(),
-      car: faker.address.city()
+      car: faker.address.state()
     }
     )
     data[i] =  obj
