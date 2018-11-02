@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- <base href="/">  -->
+
+  <link href="dist/css/tabulator.min.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+</head>
+<body>
+    <h1>table</h1>
+    <button><a href="columnGroup.html">Column Groups </a></button>
+    <button><a href="frozenColumn.html">frozen Column </a></button>
+    <button onclick="table.js"> click</button>
+
+    <div id='example-table'  />
+    <script>
+      var table = new Tabulator("#example-table", {
+      height:"311px",
+      layout:"fitColumns",
+      pagination:"local",
+      langs:{
+          "fr-fr":{ //French language definition
+              "columns":{
+                  "name":"Nom",
+                  "progress":"Progression",
+                  "gender":"Genre",
+                  "rating":"Évaluation",
+                  "col":"Couleur",
+                  "dob":"Date de Naissance",
+                  "car":"Voiture",
+              },
+              "pagination":{
+                  "first":"Premier",
+                  "first_title":"Premier Page",
+                  "last":"Dernier",
+                  "last_title":"Dernier Page",
+                  "prev":"Précédent",
+                  "prev_title":"Précédent Page",
+                  "next":"Prochain",
+                  "next_title":"Prochain Page",
+              },
+          },
+          "de-de":{ //German language definition
+              "columns":{
+                  "name":"Name",
+                  "progress":"Fortschritt",
+                  "gender":"Genre",
+                  "rating":"Geschlecht",
+                  "col":"Farbe",
+                  "dob":"Geburtsdatum",
+                  "car":"Auto",
+              },
+              "pagination":{
+                  "first":"Zuerst",
+                  "first_title":"Zuerst Seite",
+                  "last":"Last",
+                  "last_title":"Letzte Seite",
+                  "prev":"Zurück",
+                  "prev_title":"Zurück Seite",
+                  "next":"Nächster",
+                  "next_title":"Nächster Seite",
+              },
+          },
+      },
+      columns:[
+          {title:"Name", field:"name", width:200},
+          {title:"Progress", field:"progress", width:100, sorter:"number"},
+          {title:"Gender", field:"gender"},
+          {title:"Rating", field:"rating", width:80},
+          {title:"Favourite Color", field:"col"},
+          {title:"Date Of Birth", field:"dob"},
+          {title:"Driver", field:"car"},
+      ],
+  });
+        var tabledata = [
+          {id:1, name:"Oli Bob", progress: 20 , age:"12", col:"red", dob:""},
+          {id:2, name:"Mary May",progress: 59 , age:"1", col:"blue", dob:"14/05/1982"},
+          {id:3, name:"Christine Lobowski",progress: 20 , age:"42", col:"green", dob:"22/05/1982"},
+          {id:4, name:"Brendon Philips",progress: 56 , age:"125", col:"orange", dob:"01/08/1980"},
+          {id:5, name:"Margret Marmajuke",progress: 80 , age:"16", col:"yellow", dob:"31/01/1999"},
+          {id:1, name:"Oli Bob",progress: 77 , age:"12", col:"red", dob:""},
+          {id:2, name:"Mary May",progress: 44 , age:"1", col:"blue", dob:"14/05/1982"},
+          {id:3, name:"Christine Lobowski", progress: 20 ,age:"42", col:"green", dob:"22/05/1982"},
+          {id:4, name:"Brendon Philips",progress: 20 , age:"125", col:"orange", dob:"01/08/1980"},
+          {id:5, name:"Margret Marmajuke", progress: 33 ,age:"16", col:"yellow", dob:"31/01/1999"},
+          {id:1, name:"Oli Bob", progress: 11 ,age:"12", col:"red", dob:""},
+          {id:2, name:"Mary May", progress: 20 ,age:"1", col:"blue", dob:"14/05/1982"},
+          {id:3, name:"Christine Lobowski", progress: 21 ,age:"42", col:"green", dob:"22/05/1982"},
+          {id:4, name:"Brendon Philips",progress: 56 , age:"125", col:"orange", dob:"01/08/1980"},
+          {id:5, name:"Margret Marmajuke", progress: 21 ,age:"16", col:"yellow", dob:"31/01/1999"},
+          {id:1, name:"Oli Bob",progress: 67 , age:"12", col:"red", dob:""},
+          {id:2, name:"Mary May", progress: 90 ,age:"1", col:"blue", dob:"14/05/1982"},
+          {id:3, name:"Christine Lobowski",progress: 33 , age:"42", col:"green", dob:"22/05/1982"},
+          {id:4, name:"Brendon Philips",progress: 22 , age:"125", col:"orange", dob:"01/08/1980"},
+          {id:5, name:"Margret Marmajuke",progress: 20 , age:"16", col:"yellow", dob:"31/01/1999"},
+        ];
+    table.setData(tabledata)
+  </script>
+</body>
+</html>

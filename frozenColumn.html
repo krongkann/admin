@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="../dist/css/tabulator.min.css" rel="stylesheet">
+  <script type="text/javascript" src="../dist/js/tabulator.min.js"></script>
+  <title>frozen column </title>
+</head>
+<body>
+  <div id="frozen-table"></div>
+  <script>
+    var table = new Tabulator("#frozen-table", {
+      height:"311px",
+      columns:[
+      {title:"Name", field:"name", width:250, frozen:true}, //frozen column
+      {title:"Progress", field:"progress", sorter:"number", align:"left", formatter:"progress", width:200,  editable:true},
+      {title:"Gender", field:"gender", width:150},
+      {title:"Rating", field:"rating",  formatter:"star", align:"center", width:200},
+      {title:"Date Of Birth", field:"dob", align:"center", sorter:"date"},
+      {title:"Driver", field:"car", align:"center", formatter:"tickCross", width:150},
+      ],
+      });
+    var tabledata = [
+        {id:1, name:"Oli Bob", progress: 1 , age:"12", col:"red", dob:""},
+        {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+        {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+        {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+        {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+        {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
+        {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+        {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+        {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+        {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+        {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
+        {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+        {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+        {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+        {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+        {id:1, name:"Oli Bob", age:"12", col:"red", dob:""},
+        {id:2, name:"Mary May", age:"1", col:"blue", dob:"14/05/1982"},
+        {id:3, name:"Christine Lobowski", age:"42", col:"green", dob:"22/05/1982"},
+        {id:4, name:"Brendon Philips", age:"125", col:"orange", dob:"01/08/1980"},
+        {id:5, name:"Margret Marmajuke", age:"16", col:"yellow", dob:"31/01/1999"},
+      ];
+      table.setData(tabledata)
+  </script>
+</body>
+</html>
