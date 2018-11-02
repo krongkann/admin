@@ -40,12 +40,8 @@ app.get('/data', (req, res)=>{
     )
     data[i] =  obj
   }
-  console.log(data,"==s");
-  
-  var randomName = faker.name.findName(); // Rowan Nikolaus
-  var randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
-  var randomCard = faker.helpers.createCard(); // random contact card containing many properties
-  
+  res.status(200).send(data)
+ 
 })
 
 /**
