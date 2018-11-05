@@ -29,60 +29,119 @@ var createInput= (context, value, func)=>{
   input.type = "text";
   input.name = value;
   input.id = value
-  input.onclick = func;
-  return context.appendChild(input);
+  input.onchange = func;
+  return context.appendChild(input)
 }
 var createLabel = (context, value, func)=>{
   p = document.createElement("p");
   p.innerHTML = value
   return context.appendChild(p);
 }
+var createSelection = (context, value,k ,  func) =>{
+  var myDiv = document.createElement("div");
+  myDiv.setAttribute("id","myDiv")
+  var selectList = document.createElement("select");
+  selectList.setAttribute("id", k);
+  myDiv.appendChild(selectList);
+  _.map(value,(v,k)=>{
+    var option = document.createElement("option")
+
+    option.setAttribute("value", v);
+    option.text = v;
+    selectList.appendChild(option);
+
+  })
+  selectList.onclick = func
+  
+  context.appendChild(selectList);
+  
+}
+
+
 var showContent=async (options, data) => { 
   const p = document.createElement('div');
   var table = new Tabulator("#ppp-table",options);
+  var doc = document.body
+  var elem = document.querySelector('#Redo');
+  var undo = document.querySelector('#Undo');
+  var headerFilter = document.querySelector('#headerSelect');
+  var opeFilter = document.querySelector('#opeSelect');
+  var vFilter = document.querySelector('#value');
+  var vclearFilter = document.querySelector("#ClearFilter")
   switch (options.type) {
     case "interactionHistory":
-      createButton(document.body,"Redo",  function() {
+      createButton(doc,"Redo",  function() {
         table.redo();
 
       });
-      createButton(document.body,"Undo", function() {
+      createButton(doc,"Undo", function() {
         table.undo();
       });
+     
+      if(headerFilter !== null){
+        console.log("==err");
+
+        headerFilter.parentNode.removeChild(headerFilter);
+        opeFilter.parentNode.removeChild(opeFilter)
+        vFilter.parentNode.removeChild(vFilter)
+        vclearFilter.parentNode.removeChild(vclearFilter)
+      }
       break;
     case "filterData":
-      var arr= ['Field', 'Type', 'Value' ]
-      _.map(arr,(k,v)=>{
-        createLabel(document.body, k, ()=>{
-        })
-        createInput(document.body,k, ()=>{
-          console.log("test");
-          
-        } )
-        
-        
+      var field
+      var type = "=" ;
+      var key
+      createSelection(doc,["name","location","progress", "gender", "rating", "dob", "car"],"headerSelect", function(value) {
+        field  = this.value
+        key = _.isEmpty(key)? "" : key
+        table.setFilter(field, type , key);
+        // table.setFilter(field,this.type, null )
       })
+      createSelection(doc,["=","<","<=", ">", ">=", "!=", "like"],"opeSelect",  function(value) {
+        type  = this.value
         
+        table.setFilter(field, type , key);
 
-    default:
-      var elem = document.querySelector('#redo');
-      var undo = document.querySelector('#undo');
-      if(elem !== null ){
+      })
+      createInput(doc, "value", function(value){
+        key = this.value
+        table.setFilter(field,type ,key)
+      })
+      createButton(doc,"ClearFilter", function(){
+        var txtInput = document.getElementById("value")
+        txtInput.value = ""
+        var txtField = document.getElementById("headerSelect")
+        txtField.value = ""
+        table.clearFilter();
+      } )
+      if(elem !== null  ){
         elem.parentNode.removeChild(elem);
         undo.parentNode.removeChild(undo)
       }
+      
       break;
+      
+      
+
+        
+
+    default:
+
+      if(elem !== null  ){
+        elem.parentNode.removeChild(elem);
+        undo.parentNode.removeChild(undo)
+      }
+      if(headerFilter !== null){
+        headerFilter.parentNode.removeChild(headerFilter);
+        opeFilter.parentNode.removeChild(opeFilter)
+        vFilter.parentNode.removeChild(vFilter)
+        vclearFilter.parentNode.removeChild(vclearFilter)
+      }
   }
-  
   p.textContent = table.setData(data)
+
 }  
 var dateEditor = (cell, onRendered, success, cancel)=>{
-  //cell - the cell component for the editable cell
-  //onRendered - function to call when the editor has been rendered
-  //success - function to call to pass the successfuly updated value to Tabulator
-  //cancel - function to call to abort the edit and return to a normal cell
-
-  //create and style input
   var cellValue = moment(cell.getValue(), "DD/MM/YYYY").format("YYYY-MM-DD"),
   input = document.createElement("input");
 
@@ -229,7 +288,7 @@ var typeTable = (key)=>{
       return {
         height:"311px",
         type: "editableData",
-        columns:[
+        columns:[ 
           {title:"Name", field:"name", width:150, editor:"input"},
           {title:"Location", field:"location", width:130, editor:true},
           {title:"Progress", field:"progress", sorter:"number", align:"left", formatter:"progress", width:140, editor:true},
