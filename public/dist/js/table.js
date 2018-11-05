@@ -121,7 +121,33 @@ var showContent=async (options, data) => {
       
       break;
       
+    case "addDeleteRow":
+      var arr= [{key:"add", label:"Add Bank Row to bottom"}, {key:"remove", label:"Remove Row Oil Bob"},{key:"empty", label:"Empty the table"},{key:"reset", label:"Reset"}]
+      _.map(arr, (v,k)=>{
+        createButton(doc,v.key, function(value){
+          switch (this.value) {
+            case "add":
+              table.addRow({})
+              
+              break;
+            case "remove":
+              table.deleteRow(1);
+            case "empty":
+              console.log("empty", table.clearData());
+              
+              table.clearData()
+            case "reset":
+              table.setData(data);
+            default:
+              break;
+          }
+          
+        } )
+        
+      })
       
+
+      break;
 
         
 
@@ -138,6 +164,7 @@ var showContent=async (options, data) => {
         vclearFilter.parentNode.removeChild(vclearFilter)
       }
   }
+  
   p.textContent = table.setData(data)
 
 }  
@@ -356,10 +383,26 @@ var typeTable = (key)=>{
       }
       return options
     }
+    case 'addDeleteRow': {
+      var options = {
+        height:"311px",
+        addRowPos:"bottom",
+        type: "addDeleteRow",
+        columns:[
+            {title:"Name", field:"name", width:200, editor:"input"},
+            {title:"Progress", field:"progress", width:100, align:"right", sorter:"number", editor:"input"},
+            {title:"Gender", field:"gender", editor:"input"},
+            {title:"Rating", field:"rating", align:"center", width:80, editor:"input"},
+            {title:"Favourite Color", field:"col", editor:"input"},
+            {title:"Date Of Birth", field:"dob", align:"center", sorter:"date", editor:"input"},
+            {title:"Driver", field:"car", align:"center", editor:"input"},
+        ]
+  
+      }
+      return options
+      
+    }
   }
-
-
-
 
 }
 
